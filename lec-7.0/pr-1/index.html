@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <script>
+
+        let fruits=["Mango", "Watermalon", "Apple", "manikala zapotoa"]
+        let length=fruits.length;
+
+        let list="<ul>"
+
+            for(let i=0;i<length;i++){
+                list += "<li>"+fruits[i]+"</li>";
+            }
+
+        list =+"</ul>";
+        document.write(list);
+
+
+      
+
+
+        fruits.push("cherry");
+
+        document.write(fruits + "<br><br>");
+      
+
+
+
+        fruits.pop("");
+
+        document.write(fruits + "<br><br>");
+ 
+
+        fruits.shift();
+
+        document.write(fruits + "<br><br>");
+
+
+        fruits.unshift("cherry");
+
+        document.write(fruits + "<br><br>");
+
+
+        fruits.splice( 1,3,"");
+
+        document.write(fruits + "<br><br>");
+
+
+
+    </script>
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>GO</title>
+</head>
+<body>
+    
+<h2 id="name"></h2>
+<h2 id="email"></h2>
+<h2 id="age"></h2>
+<h2 id="sub"></h2>
+<h2 id="city"></h2>
+
+<script>
+
+
+var obj={
+
+    Name:"yash",
+    email:"yash@gmail.com",
+    age:20,
+    sub:"fullstack",
+    country:{
+        state:"gujrat",
+        city:"surat",
+    }
+}
+
+
+
+
+document.getElementById('name').innerHTML=`Name:-${obj.Name}`;
+document.getElementById('email').innerHTML=obj.email;
+document.getElementById('age').innerHTML=obj.age;
+document.getElementById('sub').innerHTML=obj.sub;
+document.getElementById('city').innerHTML=obj.country.state;
+
+</script>
+
+
+
+
+</body>
+</html>

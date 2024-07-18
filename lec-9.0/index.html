@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>multipal obj</title>
+</head>
+<body>
+
+
+
+    <table align="center" border="1">
+        <thead>
+        <tr>
+            <th>index no</th>
+            <th> Name</th>
+            <th>Phone no</th>
+        </tr>
+        </thead>
+        <tbody id="data">
+            <td id="no"></td>
+            <td id="name"></td>
+            <td id="mo"></td>
+        </tbody>
+    </table>
+
+
+
+
+
+
+    
+
+    <script>
+        var obj=[
+            {
+                name:"yash",
+                mo:745545
+            },
+            {
+                name:"",
+                mo:745545
+            },
+            {
+                name:"yash",
+                mo:745545
+            }
+        ]
+
+        let tbl ="";
+            record.map((val,index)=>{
+                tbl+=`
+                
+                <tr>
+                    <td>${index++}</td>
+                      <td>${name}</td>
+                        <td>${mo}</td>
+                    </tr>
+                
+                `
+            })
+        document.getElementById('data').innerHTML=tbl;
+
+
+    </script>
+
+
+</body>
+</html>
