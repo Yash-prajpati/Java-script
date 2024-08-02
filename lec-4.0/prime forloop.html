@@ -1,0 +1,18 @@
+
+<script>
+
+var no=parseInt(prompt("Enter a value"));
+var check=0;
+
+for(var i=2;i<no;i++){
+    if(no % i == 0){
+        check=1;
+        break;
+    }
+}
+if(check == 1){
+    document.write("<h1>not prime</h1>");
+}else{
+    document.write(" <h1>prime namber</h1>");
+}
+</script>
