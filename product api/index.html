@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <script>
+        const viewproduct = () =>{
+            fetch('https://dummyjson.com/products')
+            .then(res => res.json())
+            .then((data)=>{
+
+                let tbl = "";
+                let products=data.products;
+                products.map((p,i)=>{
+                    tbl+=`
+
+                    <tr>
+                        <td>${++i}</td>
+                        <td>
+                            <img src="${p.thumbnail}" width="150"/>
+                            </td>
+                        <td>${p.title}</td>
+                        <td>
+                            <table>`
+
+                                p.tags.map((t,j)=>{
+                                    return(
+                                        tbl+=`
+                                        <td>${++j}.</td>
+                                        <td>${t}.</td>
+                                        `
+                                    )
+                                })
+
+                               tbl+=` </table>
+                        </td>
+                        <td>
+                            <table width="500">
+                                <thead>
+                                    <tr>
+                                        <th>name</th>
+                                        <th>comment</th>
+                                        <th>rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`
+
+                                        p.reviews.map((r,k)=>{
+                                            return(
+                                                tbl+=`
+                                                <tr align="center">
+                                                    <td>${r.reviewerName}</td>
+                                                    <td>${r.comment}</td>
+                                                    <td>${r.rating}</td>
+                                                    </tr>
+                                                `
+                                            )
+                                        })
+
+                                       tbl+= ` </tbody>
+                                </table>
+                            </td>
+
+                            <table>`
+
+                                p.images.map((im)=>{
+                                    return(
+                                        tbl+=`
+                                            <td>
+                                                <img src="${im}" width="100"/>
+                                                </td>
+                                        `
+                                    )
+                                })
+
+                                tbl+=`</table>
+
+                    </tr>
+
+
+                    `
+                })
+                document.getElementById('record').innerHTML = tbl;
+
+            })
+        }
+        viewproduct();
+    </script>
+    
+</body>
+</html>

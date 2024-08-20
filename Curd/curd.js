@@ -7,7 +7,13 @@ let data=[]
             
             <tr>
 
-            <td
+            <td>${++i}</td>
+            <td>${val.name}</td>
+            <td>${val.phone}</td>
+            <td>
+            <button onclick=""></button>
+
+            </td>
 
             </tr>
             
