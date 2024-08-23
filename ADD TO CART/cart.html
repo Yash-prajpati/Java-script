@@ -111,7 +111,7 @@
                  <td>
                          <input class="form-control w-25" id="qty_${val.id}" type="number" onchange="editQty(${val.id})" value="${val.qty}"/>
                   </td>
-                
+                <td>${val.price*val.qty}</td>
                   <td>
                       <button onclick="deleteCart(${val.id})" style="border:none; padding: 5px 15px; border-radius:7px;" >delete</button>
                   </td>
@@ -146,7 +146,7 @@
             alert("PRODUCT DELETE");
             getCard();
         }
-
+        
         
     </script>
 

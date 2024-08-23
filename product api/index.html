@@ -1,97 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-
-
-    <script>
-        const viewproduct = () =>{
-            fetch('https://dummyjson.com/products')
-            .then(res => res.json())
-            .then((data)=>{
-
-                let tbl = "";
-                let products=data.products;
-                products.map((p,i)=>{
-                    tbl+=`
-
-                    <tr>
-                        <td>${++i}</td>
-                        <td>
-                            <img src="${p.thumbnail}" width="150"/>
-                            </td>
-                        <td>${p.title}</td>
-                        <td>
-                            <table>`
-
-                                p.tags.map((t,j)=>{
-                                    return(
-                                        tbl+=`
-                                        <td>${++j}.</td>
-                                        <td>${t}.</td>
-                                        `
-                                    )
-                                })
-
-                               tbl+=` </table>
-                        </td>
-                        <td>
-                            <table width="500">
-                                <thead>
-                                    <tr>
-                                        <th>name</th>
-                                        <th>comment</th>
-                                        <th>rating</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`
-
-                                        p.reviews.map((r,k)=>{
-                                            return(
-                                                tbl+=`
-                                                <tr align="center">
-                                                    <td>${r.reviewerName}</td>
-                                                    <td>${r.comment}</td>
-                                                    <td>${r.rating}</td>
-                                                    </tr>
-                                                `
-                                            )
-                                        })
-
-                                       tbl+= ` </tbody>
-                                </table>
-                            </td>
-
-                            <table>`
-
-                                p.images.map((im)=>{
-                                    return(
-                                        tbl+=`
-                                            <td>
-                                                <img src="${im}" width="100"/>
-                                                </td>
-                                        `
-                                    )
-                                })
-
-                                tbl+=`</table>
-
-                    </tr>
-
-
-                    `
-                })
-                document.getElementById('record').innerHTML = tbl;
-
-            })
+    <title>Product Table</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1e1e1e; /* Dark background for the body */
+            color: #e0e0e0; /* Light text color for readability */
+            margin: 0;
+            padding: 20px;
         }
-        viewproduct();
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .table {
+            background-color: #2a2a2a; /* Dark table background */
+            border-radius: 12px; /* Rounded corners for the table */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
+            color: #e0e0e0; /* Light text color for table */
+            overflow: hidden; /* Ensures children respect the border radius */
+        }
+
+        .table thead th {
+            background-color: #333333; /* Slightly lighter dark gray for header */
+            color: #f8f9fa; /* Off-white text color for header */
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none; /* Remove default border */
+        }
+
+        .table tbody tr:hover {
+            background-color: #3a3a3a; /* Dark gray hover effect */
+        }
+
+        .table img {
+            border-radius: 8px; /* Rounded corners for images */
+            max-width: 100%; /* Ensure images scale properly */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .tags-table td, .reviews-table th, .reviews-table td, .images-table td {
+            padding: 8px; /* Slightly larger padding for readability */
+            border: none;
+            text-align: center;
+        }
+
+        .reviews-table th {
+            background-color: #333333; /* Matching header color */
+            color: #f8f9fa; /* Off-white text color */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .reviews-table td {
+            background-color: #2a2a2a; /* Darker gray background for review rows */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4 text-light">Products</h2> <!-- Heading color -->
+        <div class="table-container">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Thumbnail</th>
+                        <th>Name</th>
+                        <th>Tags</th>
+                        <th>Reviews</th>
+                        <th>Images</th>
+                    </tr>
+                </thead>
+                <tbody id="products"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const getAllProducts = () => {
+            fetch('https://dummyjson.com/products')
+                .then(res => res.json())
+                .then(data => {
+                    let tbl = "";
+                    let products = data.products;
+                    products.forEach(p => {
+                        tbl += `
+                            <tr>
+                                <td>${p.id}</td>
+                                <td><img src="${p.thumbnail}" width="100" height="100" class="img-fluid"></td>
+                                <td>${p.title}</td>
+                                <td>
+                                    <table class="tags-table">
+                                        ${p.tags.map(tags => `<tr><td>${tags}</td></tr>`).join('')}
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="reviews-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Comment</th>
+                                                <th>Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${p.reviews.map(review => `
+                                                <tr>
+                                                    <td>${review.reviewName}</td>
+                                                    <td>${review.comment}</td>
+                                                    <td>${review.rating}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="images-table">
+                                        ${p.images.map(image => `
+                                            <tr>
+                                                <td><img src="${image}" width="100" height="100" class="img-fluid"></td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    document.getElementById('products').innerHTML = tbl;
+                });
+        }
+
+        getAllProducts();
     </script>
-    
 </body>
+
 </html>
